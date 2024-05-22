@@ -20,7 +20,7 @@ public enum Status {
         return descricao;
     }
 
-    public static Status toEnum(Integer cod) throws IllegalAccessException {
+    public static Status toEnum(Integer cod) {
         
         if(cod == null) {
             return null;
@@ -32,7 +32,7 @@ public enum Status {
             }
         }
 
-        throw new IllegalAccessException("Status Inválido");
+        throw new IllegalArgumentException("Status Inválido");
 
     }
     

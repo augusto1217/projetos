@@ -20,7 +20,7 @@ public enum Perfil {
         return descricao;
     }
     
-    public static Perfil toEnum(Integer cod) throws IllegalAccessException {
+    public static Perfil toEnum(Integer cod) {
         if(cod == null) {
             return null;
         }
@@ -31,7 +31,7 @@ public enum Perfil {
             }
         }
 
-        throw new IllegalAccessException("Perfil Inválido");
+        throw new IllegalArgumentException("Perfil Inválido");
     }
 
 }
