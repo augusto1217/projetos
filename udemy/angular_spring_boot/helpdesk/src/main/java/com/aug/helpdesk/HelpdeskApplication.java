@@ -1,4 +1,4 @@
-package com.aug.helpdesk.helpdesk;
+package com.aug.helpdesk;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
