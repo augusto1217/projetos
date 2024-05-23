@@ -8,7 +8,18 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.aug.helpdesk.domain.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public abstract class Pessoal implements Serializable {
 
     /**
@@ -16,12 +27,23 @@ public abstract class Pessoal implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     protected BigInteger id;
     protected String nome;
+    
+    @Column(unique = true)
     protected String cpf;
+
+    @Column(unique = true)
     protected String email;
     protected String senha;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "Perfis")
     protected Set<Integer> perfis = new HashSet<Integer>();
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now();
     
     public Pessoal() {
