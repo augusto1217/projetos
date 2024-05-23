@@ -10,7 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class Tecnico extends Pessoal {
+public class Tecnico extends Pessoa {
 
     /**
      *

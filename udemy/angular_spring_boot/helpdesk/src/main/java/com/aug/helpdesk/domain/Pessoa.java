@@ -20,7 +20,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public abstract class Pessoal implements Serializable {
+public abstract class Pessoa implements Serializable {
 
     /**
      *
@@ -46,12 +46,12 @@ public abstract class Pessoal implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now();
     
-    public Pessoal() {
+    public Pessoa() {
         super();
         addPerfis(Perfil.CLIENTE);
     }
 
-    public Pessoal(BigInteger id, String nome, String cpf, String email, String senha) {
+    public Pessoa(BigInteger id, String nome, String cpf, String email, String senha) {
         super();        
         this.id = id;
         this.nome = nome;
@@ -134,7 +134,7 @@ public abstract class Pessoal implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Pessoal other = (Pessoal) obj;
+        Pessoa other = (Pessoa) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
