@@ -1,7 +1,6 @@
 package com.aug.helpdesk.domain;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.time.LocalDate;
 
 import com.aug.helpdesk.domain.enums.Prioridade;
@@ -25,7 +24,7 @@ public class Chamado implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger id;
+    private Integer id;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataAbertura = LocalDate.now();
@@ -39,18 +38,18 @@ public class Chamado implements Serializable {
     private String observacoes;
     
     @ManyToOne
-    @JoinColumn(name = "tecnico_id")
+    @JoinColumn(name = "id_tecnico")
     private Tecnico tecnico;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "id_cliente")
     private Cliente cliente;
         
     public Chamado() {
         super();
     }
 
-    public Chamado(BigInteger id, Prioridade prioridade, Status status, String titulo, String observacoes,
+    public Chamado(Integer id, Prioridade prioridade, Status status, String titulo, String observacoes,
             Tecnico tecnico, Cliente cliente) {
         this.id = id;
         this.prioridade = prioridade;
@@ -61,11 +60,11 @@ public class Chamado implements Serializable {
         this.cliente = cliente;
     }
 
-    public BigInteger getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

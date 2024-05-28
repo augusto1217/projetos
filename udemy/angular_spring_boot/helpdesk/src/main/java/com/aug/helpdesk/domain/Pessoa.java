@@ -1,7 +1,6 @@
 package com.aug.helpdesk.domain;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +28,7 @@ public abstract class Pessoa implements Serializable {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    protected BigInteger id;
+    protected Integer id;
     protected String nome;
     
     @Column(unique = true)
@@ -51,7 +50,7 @@ public abstract class Pessoa implements Serializable {
         addPerfis(Perfil.CLIENTE);
     }
 
-    public Pessoa(BigInteger id, String nome, String cpf, String email, String senha) {
+    public Pessoa(Integer id, String nome, String cpf, String email, String senha) {
         super();        
         this.id = id;
         this.nome = nome;
@@ -61,11 +60,11 @@ public abstract class Pessoa implements Serializable {
         addPerfis(Perfil.CLIENTE);
     }
 
-    public BigInteger getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
