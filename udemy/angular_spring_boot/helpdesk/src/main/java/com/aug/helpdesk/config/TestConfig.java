@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 import com.aug.helpdesk.services.DBService;
 
 @Configuration
-@Profile("dev")
+@Profile("test")
 public class TestConfig {
 
     @Autowired

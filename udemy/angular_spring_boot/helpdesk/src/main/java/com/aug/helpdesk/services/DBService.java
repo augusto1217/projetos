@@ -49,8 +49,10 @@ public class DBService {
 		clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli3, cli4));		
 
 		Chamado ch1 = new Chamado(null, Prioridade.ALTA, Status.ABERTO, "Erro em instalação de Software", "Já reinstalei a aplicação", tec3, cli4);
+		Chamado ch2 = new Chamado(null, Prioridade.ALTA, Status.ANDAMENTO, "Erro em instalação de Software", "Já reinstalei a aplicação", tec1, cli4);
+		Chamado ch3 = new Chamado(null, Prioridade.ALTA, Status.ENCERRADO, "Erro em instalação de Software", "Já reinstalei a aplicação", tec1, cli4);
 
-		chamadoRepository.saveAll(Arrays.asList(ch1));
+		chamadoRepository.saveAll(Arrays.asList(ch1,ch2,ch3));
         
         return true;
     }
