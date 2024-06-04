@@ -2,7 +2,9 @@ package com.aug.helpdesk.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.aug.helpdesk.domain.dtos.TecnicoDTO;
 import com.aug.helpdesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,12 +25,24 @@ public class Tecnico extends Pessoa {
 
     public Tecnico() {
         super();
-        addPerfis(Perfil.TECNICO);
+        addPerfis(Perfil.CLIENTE);
     }
 
     public Tecnico(Integer id, String nome, String cpf, String email, String senha) {
         super(id, nome, cpf, email, senha);
-        addPerfis(Perfil.TECNICO);
+        addPerfis(Perfil.CLIENTE);
+    }
+
+    public Tecnico(TecnicoDTO tecnicoDto) {
+        super();
+        this.id = tecnicoDto.getId();
+        this.nome = tecnicoDto.getNome();
+        this.cpf = tecnicoDto.getCpf();
+        this.email = tecnicoDto.getEmail();
+        this.senha = tecnicoDto.getSenha();
+        this.perfis = tecnicoDto.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+        this.dataCriacao = tecnicoDto.getDataCriacao();
+        addPerfis(Perfil.CLIENTE);
     }
 
     public List<Chamado> getChamados() {
