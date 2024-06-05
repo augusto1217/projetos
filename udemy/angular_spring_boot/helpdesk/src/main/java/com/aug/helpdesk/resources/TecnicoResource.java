@@ -15,6 +15,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.aug.helpdesk.domain.Tecnico;
 import com.aug.helpdesk.domain.dtos.TecnicoDTO;
 import com.aug.helpdesk.services.TecnicoService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -42,7 +45,7 @@ public class TecnicoResource {
     }
 
     @PostMapping()
-    public ResponseEntity<TecnicoDTO> save(@RequestBody TecnicoDTO tec) {        
+    public ResponseEntity<TecnicoDTO> save(@Valid @RequestBody TecnicoDTO tec) {        
         Tecnico tecnico = tecnicoService.save(tec);
         URI uri = ServletUriComponentsBuilder
             .fromCurrentRequest().path("/{id}").buildAndExpand(tecnico.getId()).toUri();
