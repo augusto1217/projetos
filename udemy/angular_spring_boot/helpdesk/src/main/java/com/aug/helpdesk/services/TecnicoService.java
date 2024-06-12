@@ -49,6 +49,14 @@ public class TecnicoService {
         return tecnicoRepository.save(tecnico);
     }
 
+    public void delete(Integer id) {
+        Tecnico tecnico = findById(id);
+        if(tecnico.getChamados().size() > 0) {
+            throw new DataIntegrityViolationException("Técnico possuí ordem de serviço(s) vinculado(s) e não pode ser excluído!");
+        }
+        tecnicoRepository.delete(tecnico);
+    }
+
     private void validarPorCpfEmail(TecnicoDTO tec) {
         
         Optional<Pessoa> p = pessoaRepository.findByCpf(tec.getCpf());        
