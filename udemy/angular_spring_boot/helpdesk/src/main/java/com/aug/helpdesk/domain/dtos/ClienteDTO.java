@@ -6,17 +6,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.aug.helpdesk.domain.Tecnico;
+import com.aug.helpdesk.domain.Cliente;
 import com.aug.helpdesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.NotNull;
 
-public class TecnicoDTO implements Serializable {
+public class ClienteDTO implements Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     protected Integer id;
@@ -37,23 +34,22 @@ public class TecnicoDTO implements Serializable {
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now();
-    
-    public TecnicoDTO() {
+
+    public ClienteDTO() {
         super();
         addPerfil(Perfil.CLIENTE);
     }
 
-    public TecnicoDTO(Tecnico tecnico) {
-        this.id = tecnico.getId();
-        this.nome = tecnico.getNome();
-        this.cpf = tecnico.getCpf();
-        this.email = tecnico.getEmail();
-        this.senha = tecnico.getSenha();
-        this.perfis = tecnico.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
-        this.dataCriacao = tecnico.getDataCriacao();
-        addPerfil(Perfil.CLIENTE);
+    public ClienteDTO(Cliente cliente) {
+        this.id = cliente.getId();
+        this.nome = cliente.getNome();
+        this.cpf = cliente.getCpf();
+        this.email = cliente.getEmail();
+        this.senha = cliente.getSenha();
+        this.perfis = cliente.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+        this.dataCriacao = cliente.getDataCriacao();
     }
-
+    
     public Integer getId() {
         return id;
     }
@@ -98,9 +94,9 @@ public class TecnicoDTO implements Serializable {
         return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
     }
 
-    public void addPerfil(Perfil perfil) {
+    private void addPerfil(Perfil perfil) {
         this.perfis.add(perfil.getCodigo());
-    }
+    }    
 
     public LocalDate getDataCriacao() {
         return dataCriacao;
@@ -108,5 +104,6 @@ public class TecnicoDTO implements Serializable {
 
     public void setDataCriacao(LocalDate dataCriacao) {
         this.dataCriacao = dataCriacao;
-    }        
+    }
+
 }
