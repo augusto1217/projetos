@@ -2,7 +2,6 @@ package com.aug.helpdesk.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import com.aug.helpdesk.domain.dtos.ClienteDTO;
