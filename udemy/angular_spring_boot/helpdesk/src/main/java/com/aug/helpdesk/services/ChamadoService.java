@@ -1,5 +1,6 @@
 package com.aug.helpdesk.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +43,13 @@ public class ChamadoService {
        return chamadoRepository.save(newChamado(dto));
     }
 
+    public Chamado update(Integer id, @Valid ChamadoDTO dto) {
+        dto.setId(id);
+        Chamado oldChamado = findById(id);
+        oldChamado = newChamado(dto);
+        return chamadoRepository.save(oldChamado);
+     }
+
     private Chamado newChamado(ChamadoDTO dto) {
         Tecnico tecnico = tecnicoService.findById(dto.getIdTecnico());
         Cliente cliente = clienteService.findById(dto.getIdCliente());
@@ -50,6 +58,10 @@ public class ChamadoService {
 
         if(dto.getId() != null) {
             chamado.setId(dto.getId());
+        }
+
+        if(dto.getStatus().equals(Status.ENCERRADO.getCodigo())) {
+            chamado.setDataFechamento(LocalDate.now());
         }
 
         chamado.setTecnico(tecnico);
@@ -61,6 +73,6 @@ public class ChamadoService {
 
         return chamado;
 
-    }
+    }   
 
 }
