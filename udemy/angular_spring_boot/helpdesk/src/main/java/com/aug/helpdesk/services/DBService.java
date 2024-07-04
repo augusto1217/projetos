@@ -3,6 +3,7 @@ package com.aug.helpdesk.services;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.aug.helpdesk.domain.Chamado;
@@ -17,8 +18,8 @@ import com.aug.helpdesk.repositories.TecnicoRepository;
 
 @Service
 public class DBService {
-    
-    @Autowired
+
+	@Autowired
 	private TecnicoRepository tecnicoRepository;
 
 	@Autowired
@@ -27,34 +28,41 @@ public class DBService {
 	@Autowired
 	private ChamadoRepository chamadoRepository;
 
-    public Boolean instaciaDB() {
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
-        Tecnico tec0 = new Tecnico(null, "Osandi A S Mariano", "12244046028", "amariano@gmail.com", "123456");
-		Tecnico tec1 = new Tecnico(null, "Jane Soares Maia", "05246907074", "janes.maia@gmail.com", "123456");
-		Tecnico tec2 = new Tecnico(null, "Deborah Soares Maia", "11222934027", "deborah.maia@gmail.com", "123456");
-		Tecnico tec3 = new Tecnico(null, "Maria Augusta S. Neta", "58750898060", "maugustaneta@gmail.com", "123456");
+	public Boolean instaciaDB() {
 
-		tec0.addPerfis(Perfil.ADMIN);
-		tec1.addPerfis(Perfil.TECNICO);
-		tec2.addPerfis(Perfil.TECNICO);
-		tec3.addPerfis(Perfil.TECNICO);
+		Tecnico tec0 = new Tecnico(null, "Osandi A S Mariano", "12244046028", "amariano@gmail.com",
+				encoder.encode("123"));
+		Tecnico tec1 = new Tecnico(null, "Jane Soares Maia", "05246907074", "janes.maia@gmail.com",
+				encoder.encode("123"));
+		Tecnico tec2 = new Tecnico(null, "Deborah Soares Maia", "11222934027", "deborah.maia@gmail.com",
+				encoder.encode("123"));
+		Tecnico tec3 = new Tecnico(null, "Maria Augusta S. Neta", "58750898060", "maugustaneta@gmail.com",
+				encoder.encode("123"));
+
+		tec0.addPerfis(Perfil.ADMIN);		
 
 		tecnicoRepository.saveAll(Arrays.asList(tec0, tec1, tec2, tec3));
-		
-		Cliente cli1 = new Cliente(null, "Josefina Alves", "86313217020", "josefaalves@gmail.com", "123456");
-		Cliente cli2 = new Cliente(null, "Alana de Barros Alves", "28768581009", "alanabalves@gmail.com", "123456");
-		Cliente cli3 = new Cliente(null, "Barrerito de Paula", "49488457015", "barreritodp@gmail.com", "123456");
-		Cliente cli4 = new Cliente(null, "João Mineiro", "38408231022", "joaomineiro@gmail.com", "123456");
 
-		clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli3, cli4));		
+		Cliente cli1 = new Cliente(null, "Josefina Alves", "86313217020", "josefaalves@gmail.com", encoder.encode("123"));
+		Cliente cli2 = new Cliente(null, "Alana de Barros Alves", "28768581009", "alanabalves@gmail.com", encoder.encode("123"));
+		Cliente cli3 = new Cliente(null, "Barrerito de Paula", "49488457015", "barreritodp@gmail.com", encoder.encode("123"));
+		Cliente cli4 = new Cliente(null, "João Mineiro", "38408231022", "joaomineiro@gmail.com", encoder.encode("123"));
 
-		Chamado ch1 = new Chamado(null, Prioridade.ALTA, Status.ABERTO, "Erro em instalação de Software", "Já reinstalei a aplicação", tec3, cli4);
-		Chamado ch2 = new Chamado(null, Prioridade.ALTA, Status.ANDAMENTO, "Erro em instalação de Software", "Já reinstalei a aplicação", tec1, cli4);
-		Chamado ch3 = new Chamado(null, Prioridade.ALTA, Status.ENCERRADO, "Erro em instalação de Software", "Já reinstalei a aplicação", tec1, cli4);
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli3, cli4));
 
-		chamadoRepository.saveAll(Arrays.asList(ch1,ch2,ch3));
-        
-        return true;
-    }
+		Chamado ch1 = new Chamado(null, Prioridade.ALTA, Status.ABERTO, "Erro em instalação de Software",
+				"Já reinstalei a aplicação", tec3, cli4);
+		Chamado ch2 = new Chamado(null, Prioridade.ALTA, Status.ANDAMENTO, "Erro em instalação de Software",
+				"Já reinstalei a aplicação", tec1, cli4);
+		Chamado ch3 = new Chamado(null, Prioridade.ALTA, Status.ENCERRADO, "Erro em instalação de Software",
+				"Já reinstalei a aplicação", tec1, cli4);
+
+		chamadoRepository.saveAll(Arrays.asList(ch1, ch2, ch3));
+
+		return true;
+	}
 
 }

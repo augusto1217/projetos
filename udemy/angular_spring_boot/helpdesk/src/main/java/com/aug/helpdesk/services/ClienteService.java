@@ -3,7 +3,10 @@ package com.aug.helpdesk.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.aug.helpdesk.domain.Cliente;
@@ -14,8 +17,6 @@ import com.aug.helpdesk.repositories.PessoaRepository;
 import com.aug.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.aug.helpdesk.services.exceptions.ObjectNotFoundException;
 
-import jakarta.validation.Valid;
-
 @Service
 public class ClienteService {
 
@@ -24,6 +25,9 @@ public class ClienteService {
 
     @Autowired
     private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     public Cliente findById(Integer id) {
         Optional<Cliente> cliente = clienteRepository.findById(id);
@@ -36,6 +40,7 @@ public class ClienteService {
 
     public Cliente save(ClienteDTO clienteDto) {
         clienteDto.setId(null);
+        clienteDto.setSenha(encoder.encode(clienteDto.getSenha()));
         validarPorCpfEmail(clienteDto);
         Cliente cliente = new Cliente(clienteDto);
         return clienteRepository.save(cliente);

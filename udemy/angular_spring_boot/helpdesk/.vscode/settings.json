@@ -1,5 +1,6 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
     "java.dependency.packagePresentation": "hierarchical",
-    "java.settings.url": ".vscode/vscode-java.prefs"
+    "java.settings.url": ".vscode/vscode-java.prefs",
+    "java.configuration.updateBuildConfiguration": "automatic"
 }

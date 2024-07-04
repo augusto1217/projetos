@@ -3,7 +3,10 @@ package com.aug.helpdesk.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.aug.helpdesk.domain.Pessoa;
@@ -14,8 +17,6 @@ import com.aug.helpdesk.repositories.TecnicoRepository;
 import com.aug.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.aug.helpdesk.services.exceptions.ObjectNotFoundException;
 
-import jakarta.validation.Valid;
-
 @Service
 public class TecnicoService {
 
@@ -24,6 +25,9 @@ public class TecnicoService {
 
     @Autowired
     private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     public Tecnico findById(Integer id) {
         Optional<Tecnico> tecnico = tecnicoRepository.findById(id);
@@ -36,6 +40,7 @@ public class TecnicoService {
 
     public Tecnico save(TecnicoDTO tec) {
         tec.setId(null);
+        tec.setSenha(encoder.encode(tec.getSenha()));
         validarPorCpfEmail(tec);
         Tecnico newTec = new Tecnico(tec);
         return tecnicoRepository.save(newTec);
