@@ -4,5 +4,26 @@
 
 .sidenav {
     width: 13rem;
-    color: black;
+    color: white;
+    background: rgb(7, 64, 57);
+}
+
+img {
+    width: 90%;
+    height: 2.6rem;
+    margin: 0.9rem auto 0.8rem 0.6rem;
+}
+
+.sidenav a {
+    color: white;
+}
+
+.sidenav i {
+    margin-right: .7rem;
+}
+
+.menu {
+    margin: 1rem 0 0 1rem;
+    color: white;
+    background: rgb(7, 64, 57);
 }
