@@ -29,7 +29,7 @@ import { MatCardModule } from '@angular/material/card';
 
 // Componentes do Projeto
 import { NavComponent } from './components/nav/nav.component';
-import { HomeComponent } from './componentes/home/home.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
